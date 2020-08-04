@@ -26,7 +26,7 @@ public class BaekJoon_08_1316 {
 				if (check[(int) (c[j] - 97)] == false) {
 					check[(int) (c[j] - 97)] = true;
 				} else if (c[j - 1] != c[j]) {
-					b = false; // true가 단어 아닌거임
+					b = false;
 					break;
 				}
 			}
