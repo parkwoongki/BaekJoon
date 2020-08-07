@@ -1,4 +1,4 @@
-package BaekJoon_09_1011;
+package BaekJoon_10_1978;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -7,29 +7,35 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.StringTokenizer;
 
-public class BaekJoon_09_1011 {
+public class BaekJoon_10_1978 {
 
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(System.out));
 
-		long t = Integer.parseInt(reader.readLine());
+		int t = Integer.parseInt(reader.readLine());
 
+		StringTokenizer st = new StringTokenizer(reader.readLine());
+
+		int count = 0;
 		for (int i = 0; i < t; i++) {
-			StringTokenizer st = new StringTokenizer(reader.readLine());
-			long start = Integer.parseInt(st.nextToken());
-			long end = Integer.parseInt(st.nextToken());
+			int a = Integer.parseInt(st.nextToken());
+			if (a == 1)
+				continue;
 
-			long dis = end - start;
-			long max = (int) Math.sqrt(dis);
+			boolean b = true;
+			for (int j = 2; j < a; j++) {
+				if (a % j == 0) {
+					b = false;
+					break;
+				}
+			}
 
-			if (max == Math.sqrt(dis))
-				writer.write(2 * max - 1 + "\n");
-			else if (Math.sqrt(dis) - max <= 0.5)
-				writer.write(2 * max + "\n");
-			else
-				writer.write(2 * max + 1 + "\n");
+			if (b)
+				count++;
 		}
+
+		writer.write(count + "\n");
 
 		writer.flush();
 		writer.close();
