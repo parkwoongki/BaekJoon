@@ -22,17 +22,6 @@ public class BaekJoon_09_10250 {
 			int w = Integer.parseInt(st.nextToken());
 			int n = Integer.parseInt(st.nextToken());
 
-//			String a = String.valueOf(n % (h));
-//			String b = String.valueOf(((n / h)));
-//
-//			if (b.length() == 1) {
-//				if (a.equals("0"))
-//					writer.write(String.valueOf(h) + "0" + b + "\n");
-//				else
-//					writer.write(a + "0" + b + "\n");
-//			} else
-//				writer.write(a + b + "\n");
-
 			int a = n % h;
 			double b = (double) n / h + 1;
 			if (a == 0)
