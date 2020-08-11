@@ -21,7 +21,7 @@ public class BaekJoon_10_4948 {
 			if (b[i])
 				continue;
 
-			for (int j = i * i; j <= 2 * 123456 + 1; j += i) {
+			for (int j = i * i; j < 2 * 123456 + 1; j += i) {
 				b[j] = true;
 			}
 		}
