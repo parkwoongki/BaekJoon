@@ -30,21 +30,22 @@ public class BaekJoon_10_9020 {
 
 		for (int i = 0; i < t; i++) {
 			int n = Integer.parseInt(reader.readLine()); // 4 ~ 10000
-
-			int a, b;
-			int t1 = 0, t2 = 0;
 			if (n == 4) {
 				writer.write(2 + " " + 2 + "\n");
 				continue;
 			}
 
-			for (int j = 3; j <= n / 2; j++) {
+			int a, b;
+			int t1 = 0, t2 = 0;
+
+			for (int j = n / 2; j >= 3; j--) {
 				a = j;
 				b = n - j;
 
 				if (prime[a] == false && prime[b] == false) {
 					t1 = a;
 					t2 = b;
+					break;
 				}
 			}
 			writer.write(t1 + " " + t2 + "\n");
