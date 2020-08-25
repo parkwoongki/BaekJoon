@@ -5,53 +5,39 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.Arrays;
 
 public class BaekJoon_14_MergeSort {
+	// a 배열에서 start 에서 end 사이의 값을 정렬한다.
+	static void mergeSort(int[] a, int start, int end) {
+		if (start == end)
+			return; // 정렬할 부분의 길이가 1 이면 그냥 리턴한다.
+		int middle = (start + end) / 2;
 
-	static int[] temp; // 작업용 배열
+		// start와 end 사이 중간지점을 계산한다.
+		mergeSort(a, start, middle); // 앞부분을 정렬하기 위한 재귀 호출
+		mergeSort(a, middle + 1, end); // 뒷부분을 정렬하기 위한 재귀 호출
+		merge(a, start, middle, end); // 앞부분과 뒷부분 병합
+	} // a 배열에서 앞부분(start ~ middle)과 뒷부분(middle+1 ~ end)을 병합한다.
 
-	static void mergeSort(int[] num, int N) {
-		temp = new int[N];
+	static void merge(int[] a, int start, int middle, int end) {
+		int length = end - start + 1; // 병합할 부분의 길이를 구한다.
+		int[] temp = new int[length]; // 병합 결과를 저정할 임시 배열을 생성한다.
 
-		mergeSort(num, 0, N - 1); // 배열 전체를 병합 정렬
-	}
-
-	// 병합 정렬(main)
-	static void mergeSort(int[] num, int start, int end) {
-		// 배열 요소가 2개 이상인 경우
-		if (start < end) {
-			int mid = (start + end) / 2;
-			mergeSort(num, start, mid); // 앞부분 병합 정렬
-			mergeSort(num, mid + 1, end); // 뒷부분 병합 정렬
-			merge(num, start, end); // 앞부분과 뒷부분 병합
+		int i = 0; // 임시 배열에 대한 인덱스 변수
+		int index1 = start; // 앞부분(start ~ middle)에 대한 인덱스 변수
+		int index2 = middle + 1; // 뒷부분(middle+1 ~ end)에 대한 인덱스 변수
+		while (index1 <= middle && index2 <= end) { // 병합할 값이 앞부분과 뒷부분에 둘 다 남아 있다면
+			if (a[index1] < a[index2]) // 앞부분과 뒷부분의 선두의 값을 비교하여
+				temp[i++] = a[index1++]; // 더 작은 값이 임시 배열에 먼저 들어간다 else
+			temp[i++] = a[index2++];
 		}
-	}
-
-	// 앞부분과 뒷부분 병합
-	static void merge(int[] num, int start, int end) {
-		int mid = (start + end) / 2;
-
-		// temp에 num 배열 저장
-		for (int i = start; i <= end; i++)
-			temp[i] = num[i];
-
-		int part1 = start; // 앞부분 배열의 시작 인덱스
-		int part2 = mid + 1; // 뒷부분 배열의 시작 인덱스
-		int index = start; // 최종 결과를 오름차순대로 배열에 저장할 인덱스
-
-		// 오름차순으로 정렬하기
-		while (part1 <= mid && part2 <= end) {
-			// 앞부분 요소가 뒷부분 요소보다 작으면 결과 배열에 앞부분 요소 저장
-			if (temp[part1] <= temp[part2])
-				num[index++] = temp[part1++];
-			// 뒷부분 요소가 더 작으면 결과 배열에 뒷부분 요소 저장
-			else
-				num[index++] = temp[part2++];
-		}
-
-		// 앞부분 배열의 요소가 남았을 경우
-		for (int i = 0; i <= mid - part1; i++)
-			num[index + i] = temp[part1 + i];
+		while (index1 <= middle) // 앞부분 배열에 남아있는 값을 임시 배열에 넣는다.
+			temp[i++] = a[index1++];
+		while (index2 <= end) // 뒤부분 배열에 남아있는 값을 임시 배열에 넣는다.
+			temp[i++] = a[index2++];
+		for (i = 0; i < temp.length; ++i) // 임시 배열의 내용을 a 배열의 start 위치에 복사한다.
+			a[start + i] = temp[i];
 	}
 
 	public static void main(String[] args) throws NumberFormatException, IOException {
@@ -60,17 +46,17 @@ public class BaekJoon_14_MergeSort {
 
 		int n = Integer.parseInt(reader.readLine());
 
-		int[] arr = new int[n];
+		int[] a = new int[n];
 
 		for (int i = 0; i < n; i++) {
-			arr[i] = Integer.parseInt(reader.readLine());
+			a[i] = Integer.parseInt(reader.readLine());
 		}
 
-		mergeSort(arr, n);
+		mergeSort(a, 0, a.length - 1);
 
 		StringBuffer sb = new StringBuffer();
-		for (int a : arr) {
-			sb.append(a).append("\n");
+		for (int i : a) {
+			sb.append(i).append("\n");
 		}
 
 		writer.write(sb.toString());
