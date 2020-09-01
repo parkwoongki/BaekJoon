@@ -1,4 +1,4 @@
-package BaekJoon_15_15649;
+package BaekJoon_15_15651;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -7,12 +7,11 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.StringTokenizer;
 
-public class BaekJoon_15_15649 {
+public class BaekJoon_15_15651 {
 	private static BufferedReader reader;
 	private static BufferedWriter writer;
-	private static int list[];
-	private static boolean visit[];
 	private static int n, m;
+	private static int list[];
 	private static StringBuilder sb;
 
 	private static void dfs(int cnt) {
@@ -25,25 +24,20 @@ public class BaekJoon_15_15649 {
 		}
 
 		for (int i = 1; i <= n; i++) {
-			if (visit[i])
-				continue;
-			visit[i] = true;
 			list[cnt] = i;
 			dfs(cnt + 1);
-			visit[i] = false;
 		}
 	}
 
 	public static void main(String[] args) throws IOException {
 		reader = new BufferedReader(new InputStreamReader(System.in));
 		writer = new BufferedWriter(new OutputStreamWriter(System.out));
-
 		StringTokenizer st = new StringTokenizer(reader.readLine());
+
 		n = Integer.parseInt(st.nextToken());
 		m = Integer.parseInt(st.nextToken());
 
-		list = new int[m+1];
-		visit = new boolean[m+1];
+		list = new int[m];
 
 		sb = new StringBuilder();
 
@@ -51,8 +45,8 @@ public class BaekJoon_15_15649 {
 
 		writer.write(sb.toString());
 
-		writer.close();
 		reader.close();
+		writer.close();
 	}
 
 }
