@@ -15,8 +15,9 @@ public class BaekJoon_16_1904 {
 
 		int n = Integer.parseInt(reader.readLine());
 
-		int[] dp = new int[n + 1];
+		long[] dp = new long[1000001];
 
+		dp[0] = 0;
 		dp[1] = 1;
 		dp[2] = 2;
 
